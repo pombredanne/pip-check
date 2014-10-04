@@ -23,7 +23,7 @@ li a.name {
 	color: rgb(82, 82, 82);
 }
 
-li:hover {
+ul.updates li:hover, ul.installed li:hover {
 	background-color: #99C7FF;
 }
 
