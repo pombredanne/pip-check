@@ -7,6 +7,7 @@ if sys.version_info <= (3,0):
 	from commands import getstatusoutput
 	import urllib2 as urllib_request
 else:
+	# uh is pip even for python3?
 	from subprocess import getstatusoutput
 	import urllib.request as urllib_request
 
@@ -74,7 +75,7 @@ def updateall():
 		logging.info("Attempting to update package "+u[0]+".")
 		retcode, output = getstatusoutput("pip install "+u[0]+"=="+u[2])
 		if retcode:
-			logging.error("Failed to install "+u[0]+", pip install "+u[0]+"=="+u[2]+" returned error code "+str(retcode)+".")
+			logging.error("Failed to install "+u[0]+", `pip install "+u[0]+"=="+u[2]+"` returned error code "+str(retcode)+".")
 			errors.append({'error': output, 'code': retcode})
 	return json.dumps(errors)
 
@@ -84,11 +85,19 @@ def update(pkg_name):
 	logging.info("Attempting to update package "+pkg_name+".")
 	retcode, output = getstatusoutput("pip install "+pkg_name)
 	if retcode:
-		logging.error("Failed to install "+pkg_name.split("==")[0]+", pip install "+pkg_name+" returned error code "+str(retcode)+".")
+		logging.error("Failed to install "+pkg_name.split("==")[0]+", `pip install "+pkg_name+"` returned error code "+str(retcode)+".")
 		return json.dumps({'error': output, 'code': retcode})
 	else:
 		return ""
 
 if __name__ == '__main__':
-    logging.basicConfig(filename='pip-check.log', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-    app.run(host="192.168.1.130")
+    parser = argparse.ArgumentParser(description="Web App to display updates for installed pip packages on your system.")
+    parser.add_argument("-l", help="Log to specified file.")
+    parser.add_argument("-H", help="Specify host to serve on (be careful...), defaults to 127.0.0.1")
+    parser.add_argument("-P", help="Specify port to server on, defaults to 5000")
+    args = parser.parse_args()
+    if args.l:
+        logging.basicConfig(filename=args.l, level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+    host = args.H or '127.0.0.1'
+    port = int(args.P) if args.P else 5000
+    app.run(host=host, port=port)
