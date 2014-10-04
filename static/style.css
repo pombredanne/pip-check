@@ -1,0 +1,51 @@
+ul.updates, ul.installed {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+ul.updates li, ul.installed li {
+	width: 25%;	
+	display: inline-block;
+	text-align: center;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	background-color: rgb(230, 230, 230);
+	font-family: Verdana;
+	transition: background-color 1s;
+	cursor: default;
+}
+
+li a.name {
+	font-size: 14pt;
+	font-weight: bold;
+	text-decoration: none;
+	color: rgb(82, 82, 82);
+}
+
+li:hover {
+	background-color: #99C7FF;
+}
+
+a.update, a.warn-update {
+	padding: 5px;
+	font-weight: bold;
+	font-size: 13pt;
+	cursor: pointer;
+	color: rgb(83, 151, 83);
+	text-decoration: none;
+}
+
+.old, .new {
+	font-size: 10pt;
+	display: inline-block;
+	font-weight: bold;
+}
+
+.old {
+	color: rgb(216, 85, 85);
+}
+
+.new {
+	color: rgb(83, 151, 83);
+}

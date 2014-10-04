@@ -43,19 +43,32 @@ def get_latest(installed):
 			rawJSON = handler.read()
 			pkg_info = json.loads(rawJSON.decode('utf-8'))
 			if parse_version(version) < parse_version(pkg_info['info']['version']):
-				latest.append([name, pkg_info['info']['version'], editable])
+				latest.append([name, version, pkg_info['info']['version'], editable])
 	# do something about failed
 	return latest
 
 app = Flask(__name__)
 
+# index
 @app.route('/')
 def index():
     return render_template('index.html')
 
+# refresh installed packages/latest versions
 @app.route('/refresh', methods=['GET'])
 def refresh():
-    return json.dumps({'updates': get_latest(installed), 'installed': get_installed()})
+    installed = get_installed()
+    return json.dumps({'updates': get_latest(installed), 'installed': installed})
+
+# update all
+@app.route('/update', methods=['POST'])
+def update(pkg_name):
+	return 0
+
+# update single package
+@app.route('/update/<pkg_name>', methods=['POST'])
+def update(pkg_name):
+	return 0
 
 if __name__ == '__main__':
     app.run(host="192.168.1.130")

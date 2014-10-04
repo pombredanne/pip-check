@@ -2,13 +2,25 @@
 <html>
 	<head>
 		<title>pip updates</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui.css') }}" />
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<script type="text/javascript" src="{{ url_for('static', filename='pip-check.js') }}"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
 	</head>
 	<body>
-		<h2>Updates</h2>
-		<div class="updates"></div>
-		<h2>Installed</h2>
-		<div class="installed"></div>
+		<div id="tabs">
+			<ul>
+				<li><a href="#tabs-1">Updates</a></li>
+				<li><a href="#tabs-2">Installed</a></li>
+			</ul>
+
+			<div id="tabs-1">
+				<ul class="updates"></ul>
+			</div>
+			<div id="tabs-2">
+				<ul class="installed"></ul>
+			</div>
+		</div>
+			<script type="text/javascript" src="{{ url_for('static', filename='pip-check.js') }}"></script>
 	</body>
 </html>
