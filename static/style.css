@@ -1,3 +1,11 @@
+body {
+	margin: 0px;
+}
+
+#tabs {
+	padding: 0px;
+}
+
 ul.updates, ul.installed {
 	list-style: none;
 	margin: 0px;
@@ -48,4 +56,14 @@ a.update, a.warn-update {
 
 .new {
 	color: rgb(83, 151, 83);
+}
+
+.version {
+	font-size: 10pt;
+	font-weight: bold;
+	padding-top: 5px;
+}
+
+a {
+	outline: none;
 }
