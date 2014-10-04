@@ -18,9 +18,17 @@ $( document ).ready(function() {
 		}
 	});
 
+	// should implement a thing to check if you want to update if its a major version change!
 	$(document).on("click", 'a.update', function(event) {
 		event.preventDefault();
-		console.log("weee");
+		// maybe give it some updating typing logo/thing and also disable it so you cant click twice
+		$.post(event.target.href, function(data) {
+			if (data === "") {
+				$(event.target).parent().remove();
+			} else {
+				// ERRORRRR
+			}
+		})
 	})
 
 	$(document).on("click", 'a.update-warn', function(event) {

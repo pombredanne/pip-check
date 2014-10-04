@@ -60,7 +60,7 @@ def refresh():
     installed = get_installed()
     return json.dumps({'updates': get_latest(installed), 'installed': installed})
 
-# update all packages
+# update all packages, assumes you already checked that this was dangerous...
 @app.route('/update', methods=['POST'])
 def updateall():
 	all_pkgs = json.loads(refresh())
@@ -78,7 +78,7 @@ def update(pkg_name):
 	if retcode:
 		return json.dumps({'error': output, 'code': retcode})
 	else:
-		return "updated"
+		return ""
 
 if __name__ == '__main__':
     app.run(host="192.168.1.130")
