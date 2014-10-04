@@ -28,8 +28,8 @@ $(document).ready(function() {
 		$.post(event.target.href, function(data) {
 			if (data === "") {
 				// remove the div, should also update the installed list somehow, maybe change the color to indicate its been updated... (give each li a id/class with the name of the package.)
-				$('li#'+event.target.href.split('/').slice(-1).split("==")[0]).children('.version').text(event.target.href.split("==")[1]);
-				$('li#'+event.target.href.split('/').slice(-1).split("==")[0]).css('background-color', '#85C57C');
+				$('li#'+event.target.href.split('/').slice(-1)[0].split("==")[0]).children('.version').text(event.target.href.split("==")[1]);
+				$('li#'+event.target.href.split('/').slice(-1)[0].split("==")[0]).css('background-color', '#85C57C');
 				$(event.target).parent().remove();
 			} else {
 				// ERRORRRR
