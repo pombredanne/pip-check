@@ -62,7 +62,7 @@ def refresh():
 
 # update all
 @app.route('/update', methods=['POST'])
-def update(pkg_name):
+def updateall(pkg_name):
 	return 0
 
 # update single package
