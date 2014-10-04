@@ -71,13 +71,16 @@ def refresh():
 def updateall():
 	all_pkgs = json.loads(refresh())
 	errors = []
+	passes = []
 	for u in all_pkgs['updates']:
 		logging.info("Attempting to update package "+u[0]+".")
 		retcode, output = getstatusoutput("pip install "+u[0]+"=="+u[2])
 		if retcode:
 			logging.error("Failed to install "+u[0]+", `pip install "+u[0]+"=="+u[2]+"` returned error code "+str(retcode)+".")
-			errors.append({'error': output, 'code': retcode})
-	return json.dumps(errors)
+			errors.append({'name': u[0], 'error': output, 'code': retcode})
+		else:
+			passes.append({'name': u[0], 'version': u[2]})
+	return json.dumps({'passes': passes, 'errors': errors})
 
 # update single package
 @app.route('/update/<pkg_name>', methods=['POST'])

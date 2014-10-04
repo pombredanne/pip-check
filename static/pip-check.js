@@ -34,11 +34,26 @@ $(document).ready(function() {
 			} else {
 				// ERRORRRR
 			}
-		})
+		});
 	})
 
 	$(document).on("click", 'a.update-warn', function(event) {
 		event.preventDefault();
 		console.log("weee");
+	})
+
+	$(document).on("click", 'a.updateall', function(event) {
+		event.preventDefault();
+		// some way to check for warning about dev packages
+		$.post(event.target.href, function(data) {
+			for (var i = 0;i<data['passes'].length;i++) {
+				$('li#'+data['passes'][i]['name']).children('.version').text(data['passes'][i]['version'];
+				$('li#'+data['passes'][i]['name']).css('background-color', '#85C57C');
+				$(event.target).parent().remove();
+			}
+			for (var i = 0;i<data['errors'].length;i++) {
+				// ERRORRRR
+			}
+		});
 	})
 });

@@ -22,6 +22,7 @@ ul.updates li, ul.installed li {
 	font-family: Verdana;
 	transition: background-color 1s;
 	cursor: default;
+	text-align: center;
 }
 
 li a.name {
@@ -66,4 +67,14 @@ a.update, a.warn-update {
 
 a {
 	outline: none;
+}
+
+a.updateall {
+	text-decoration: none;
+	color: rgb(83, 151, 83);
+	font-size: 14pt;
+	font-weight: bold;
+	text-align: center;
+	display: block;
+	margin-bottom: 20px;
 }
