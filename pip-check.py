@@ -1,5 +1,5 @@
 #/usr/bin/env python
-import sys, re, json
+import sys, re, json, logging, argparse
 from flask import Flask, render_template
 from pkg_resources import parse_version
 
@@ -15,6 +15,7 @@ def get_installed(local=False):
 	command = "pip freeze"
 	if local:
 		command += " --local"
+	logging.info("Running "+command)
 	code, output = getstatusoutput(command)
 	if not code:
 		for line in output.split("\n"):
@@ -27,16 +28,20 @@ def get_installed(local=False):
 				else:
 					name, version = line.split("==")
 					pkgs.append([name, version, False])
-		return pkgs
+	else:
+		logging.info(command+" failed with error code "+str(code)+".")
+	return pkgs
 
 def get_latest(installed):
 	latest = []
 	failed = []
 	for name, version, editable in installed:
+		logging.info("Fetching https://pypi.python.org/pypi/"+name+"/json/.")
 		req = urllib_request.Request("https://pypi.python.org/pypi/"+name+"/json/")
 		try:
 			handler = urllib_request.urlopen(req)
 		except urllib_request.HTTPError:
+			logging.error("Fetching https://pypi.python.org/pypi/"+name+"/json/ failed.")
 			failed.append(name)
 			continue
 		if handler.getcode() == 200:
@@ -66,19 +71,24 @@ def updateall():
 	all_pkgs = json.loads(refresh())
 	errors = []
 	for u in all_pkgs['updates']:
+		logging.info("Attempting to update package "+u[0]+".")
 		retcode, output = getstatusoutput("pip install "+u[0]+"=="+u[2])
 		if retcode:
+			logging.error("Failed to install "+u[0]+", pip install "+u[0]+"=="+u[2]+" returned error code "+str(retcode)+".")
 			errors.append({'error': output, 'code': retcode})
 	return json.dumps(errors)
 
 # update single package
 @app.route('/update/<pkg_name>', methods=['POST'])
 def update(pkg_name):
+	logging.info("Attempting to update package "+pkg_name+".")
 	retcode, output = getstatusoutput("pip install "+pkg_name)
 	if retcode:
+		logging.error("Failed to install "+pkg_name.split("==")[0]+", pip install "+pkg_name+" returned error code "+str(retcode)+".")
 		return json.dumps({'error': output, 'code': retcode})
 	else:
 		return ""
 
 if __name__ == '__main__':
+    logging.basicConfig(filename='pip-check.log', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
     app.run(host="192.168.1.130")
