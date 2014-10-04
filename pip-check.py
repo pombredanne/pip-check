@@ -47,18 +47,15 @@ def get_latest(installed):
 	# do something about failed
 	return latest
 
-
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html') # , installed=installed, latest=latest)
+    return render_template('index.html')
 
 @app.route('/refresh', methods=['GET'])
 def refresh():
-    output = {'updates': get_latest(installed), 'installed': get_installed()}
-    return json.dumps(output)
+    return json.dumps({'updates': get_latest(installed), 'installed': get_installed()})
 
 if __name__ == '__main__':
-	# print(get_latest(get_installed()))
     app.run(host="192.168.1.130")
