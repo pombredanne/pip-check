@@ -47,7 +47,7 @@ ul.updates li:hover, ul.installed li:hover {
 	width: 50%;
 }
 
-a.update, a.warn-update {
+a.update, a.warn-update, a.error {
 	padding: 5px;
 	font-weight: bold;
 	font-size: 10pt;
@@ -56,6 +56,7 @@ a.update, a.warn-update {
 	text-decoration: none;
 	display: inline-block;
 }
+
 .old, .new {
 	font-size: 10pt;
 	display: inline-block;
@@ -141,4 +142,28 @@ img#rotating {
 }
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: rgba(170, 170, 170, 1); 
+}
+
+.ui-dialog {
+  width: 90% !important;
+  margin: auto !important;
+  outline: none;
+}
+
+.ui-dialog-titlebar {
+	background: white !important;
+}
+
+pre[class*="language-"] {
+	margin: .5em .5em !important;
+}
+
+button.ui-button {
+	border: none;
+	outline: none;
+	float: right;
+}
+
+button.ui-button span.ui-button-text {
+	display: none;
 }
