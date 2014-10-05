@@ -6,7 +6,10 @@ $(document).ready(function() {
 		var availupdates = [];
 		// disable update all button
 		$(document).off('click', 'a.refresh');
+		// should also do a overlay over the update and installed pages...
 		$('a.refresh').children('img').attr('id', 'rotating');
+		$('#tabs-1').children('a.updateall').after("<img id='rotating' class='refresh' src='/static/images/refresh.svg' style='width: 250px; height: 250px; cursor: default;'>")
+		$('#tabs-2').append("<img id='rotating' class='refresh' src='/static/images/refresh.svg' style='width: 250px; height: 250px; cursor: default;'>")
 		$.getJSON("/refresh", function(data) {
 			for (var i = 0;i<data['updates'].length;i++) {
 				if (data['updates'][i][3] === false) {
@@ -31,6 +34,8 @@ $(document).ready(function() {
 				avail = refresh();
 			});
 			$('a.refresh').children('img').removeAttr('id');
+			$('#tabs-1').children('img#rotating').remove()
+			$('#tabs-2').children('img#rotating').remove()
 		});
 		return availupdates;
 	}
