@@ -1,6 +1,7 @@
 #/usr/bin/env python
-import sys, re, json, logging, argparse
-from flask import Flask, render_template
+import sys, re, json, logging, argparse, uuid
+from flask import Flask, render_template, request, session, abort
+from flask_wtf.csrf import CsrfProtect
 from pkg_resources import parse_version
 
 if sys.version_info <= (3, 0):
@@ -9,6 +10,10 @@ if sys.version_info <= (3, 0):
 else:
     from subprocess import getstatusoutput
     import urllib.request as urllib_request
+
+app = Flask(__name__)
+app.secret_key = str(uuid.uuid4())
+CsrfProtect(app)
 
 def get_installed(local):
     pkgs = []
@@ -55,8 +60,6 @@ def get_latest(installed):
     # do something about failed ones...
     return latest
 
-app = Flask(__name__)
-
 # index
 @app.route('/')
 def index():
@@ -67,25 +70,6 @@ def index():
 def refresh():
     installed = get_installed(args.local)
     return json.dumps({'updates': get_latest(installed), 'installed': installed})
-
-# update all packages, assumes you already checked that this was dangerous...
-@app.route('/update', methods=['POST'])
-def updateall():
-    all_pkgs = json.loads(refresh())
-    errors = []
-    passes = []
-    for u in all_pkgs['updates']:
-        logging.info("Attempting to update package "+u[0]+".")
-        if args.pip3:
-            retcode, output = getstatusoutput("pip3 install "+u[0]+"=="+u[2])
-        else:
-            retcode, output = getstatusoutput("pip install "+u[0]+"=="+u[2])
-        if retcode:
-            logging.error("Failed to install "+u[0]+", `pip install "+u[0]+"=="+u[2]+"` returned error code "+str(retcode)+".")
-            errors.append({'name': u[0], 'error': output, 'code': retcode})
-        else:
-            passes.append({'name': u[0], 'version': u[2]})
-    return json.dumps({'passes': passes, 'errors': errors})
 
 # update single package
 @app.route('/update/<pkg_name>', methods=['POST'])

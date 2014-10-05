@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>pip updates</title>
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui.css') }}" />
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='prism.css') }}">

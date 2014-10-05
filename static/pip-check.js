@@ -1,4 +1,14 @@
 $(document).ready(function() {
+	var csrftoken = $('meta[name=csrf-token]').attr('content')
+
+	$.ajaxSetup({
+	    beforeSend: function(xhr, settings) {
+	        if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+	            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+	        }
+	    }
+	});
+
 	$("#tabs").tabs();
 	$("#tabs").children("ul").append("<li class='refresh'><a class='refresh'><img class='refresh' alt='refreshing package list' src='/static/images/refresh.svg' height='25px' width='25px' /></a></li>");
 
