@@ -165,7 +165,7 @@
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
 	background: #f6f6f6 url("images/ui-bg_flat_75_f6f6f6_40x100.png") 50% 50% repeat-x;
-	font-weight: normal;
+	/* font-weight: normal; */
 	color: #000000;
 }
 .ui-state-default a,
@@ -181,7 +181,7 @@
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
 	background: #ececec url("images/ui-bg_flat_75_ececec_40x100.png") 50% 50% repeat-x;
-	font-weight: normal;
+	/* font-weight: normal; */
 	color: #212121;
 }
 .ui-state-hover a,
@@ -199,7 +199,7 @@
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
 	background: #eacee7 url("images/ui-bg_flat_65_eacee7_40x100.png") 50% 50% repeat-x;
-	font-weight: normal;
+	/* font-weight: normal; */
 	color: #212121;
 }
 .ui-state-active a,
@@ -248,7 +248,7 @@
 .ui-widget-header .ui-priority-secondary {
 	opacity: .7;
 	filter:Alpha(Opacity=70); /* support: IE8 */
-	font-weight: normal;
+	/* font-weight: normal; */
 }
 .ui-state-disabled,
 .ui-widget-content .ui-state-disabled,

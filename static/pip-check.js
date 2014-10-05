@@ -9,9 +9,9 @@ $(document).ready(function() {
 		$.getJSON("/refresh", function(data) {
 			for (var i = 0;i<data['updates'].length;i++) {
 				if (data['updates'][i][3] === false) {
-					$(".updates").append("<li><a class='name' href='https://pypi.python.org/pypi/"+data['updates'][i][0]+"/' target='_blank'>"+data['updates'][i][0]+"</a><br /><div class='old'>"+data['updates'][i][1]+"</div>   →   <div class='new'>"+data['updates'][i][2]+"</div><br /><a class='update' href='/update/"+data['updates'][i][0]+"=="+data['updates'][i][2]+"'>update</a></li>");
+					$(".updates").append("<li><a class='name' href='https://pypi.python.org/pypi/"+data['updates'][i][0]+"/' target='_blank'>"+data['updates'][i][0]+"</a><br /><div class='old'>"+data['updates'][i][1]+"</div>   →   <div class='new'>"+data['updates'][i][2]+"</div><br /><a class='update' id='"+data['updates'][i][0]+"' href='/update/"+data['updates'][i][0]+"=="+data['updates'][i][2]+"'>update</a></li>");
 				} else {
-					$(".updates").append("<li class='warn'><a class='name' href='https://pypi.python.org/pypi/"+data['updates'][i][0]+"/' target='_blank'>"+data['updates'][i][0]+"</a><br /><div class='old'>"+data['updates'][i][1]+"</div>   →   <div class='new'>"+data['updates'][i][2]+"</div><br /><a class='warn-update' href='/update/"+data['updates'][i][0]+"=="+data['updates'][i][2]+"'>update</a></li>");
+					$(".updates").append("<li class='warn'><a class='name' href='https://pypi.python.org/pypi/"+data['updates'][i][0]+"/' target='_blank'>"+data['updates'][i][0]+"</a><br /><div class='old'>"+data['updates'][i][1]+"</div>   →   <div class='new'>"+data['updates'][i][2]+"</div><br /><a class='warn-update' id='"+data['updates'][i][0]+"' href='/update/"+data['updates'][i][0]+"=="+data['updates'][i][2]+"'>update</a></li>");
 				}
 				availupdates.push(data['updates'][i][0])
 			}
@@ -50,7 +50,7 @@ $(document).ready(function() {
 				// ERRORRRR
 			}
 		});
-	})
+	});
 
 	$(document).on("click", 'a.update-warn', function(event) {
 		event.preventDefault();
@@ -60,15 +60,24 @@ $(document).ready(function() {
 	$(document).on("click", 'a.updateall', function(event) {
 		event.preventDefault();
 		// some way to check for warning about dev packages
-		$.post(event.target.href, function(data) {
-			for (var i = 0;i<data['passes'].length;i++) {
-				$('li#'+data['passes'][i]['name']).children('.version').text(data['passes'][i]['version']);
-				$('li#'+data['passes'][i]['name']).css('background-color', '#85C57C');
-				$(event.target).parent().remove();
+		$(document).off('click', 'a.updateall');
+		$(document).off('click', 'a.update');
+		$(document).off('click', 'a.update-warn');
+		$(document).off('click', 'a.refresh');
+		$.post('/update', function(data) {
+			if (data['passes']) {
+				for (var i = 0;i<data['passes'].length;i++) {
+					$('li#'+data['passes'][i]['name']).children('.version').text(data['passes'][i]['version']);
+					$('li#'+data['passes'][i]['name']).css('background-color', '#85C57C');
+					$(event.target).parent().remove();
+				}
 			}
-			for (var i = 0;i<data['errors'].length;i++) {
-				// ERRORRRR
+			if (data['errors']) {
+				for (var i = 0;i<data['errors'].length;i++) {
+					// ERRORRRR, turn back on the update buttons and show a modal with error messages in pre code blocks? (syntax highlighting YAY)
+					
+				}
 			}
 		});
-	})
+	});
 });
