@@ -10,6 +10,7 @@ ul.updates, ul.installed {
 	list-style: none;
 	margin: 0px;
 	padding: 0px;
+	text-align: center;
 }
 
 ul.updates li, ul.installed li {
@@ -22,7 +23,6 @@ ul.updates li, ul.installed li {
 	font-family: Verdana;
 	transition: background-color 1s;
 	cursor: default;
-	text-align: center;
 }
 
 li a.name {
@@ -60,6 +60,7 @@ a.update, a.warn-update {
 }
 
 .version {
+	color: rgb(83, 151, 83);
 	font-size: 10pt;
 	font-weight: bold;
 	padding-top: 5px;
@@ -77,4 +78,13 @@ a.updateall {
 	text-align: center;
 	display: block;
 	margin-bottom: 20px;
+}
+
+li.refresh {
+	float: right !important;
+}
+
+img.refresh {
+	margin: 5px;
+	margin-right: 10px;
 }

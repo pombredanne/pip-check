@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	$("#tabs").tabs();
+	$("#tabs").children("ul").append("<li class='refresh'><a class='refresh' href='/refresh'><img class='refresh' src='/static/images/refresh.svg' height='25px' width='25px' /></a></li>")
 
 	var availupdates = []
 
@@ -47,7 +48,7 @@ $(document).ready(function() {
 		// some way to check for warning about dev packages
 		$.post(event.target.href, function(data) {
 			for (var i = 0;i<data['passes'].length;i++) {
-				$('li#'+data['passes'][i]['name']).children('.version').text(data['passes'][i]['version'];
+				$('li#'+data['passes'][i]['name']).children('.version').text(data['passes'][i]['version']);
 				$('li#'+data['passes'][i]['name']).css('background-color', '#85C57C');
 				$(event.target).parent().remove();
 			}
@@ -55,5 +56,10 @@ $(document).ready(function() {
 				// ERRORRRR
 			}
 		});
+	})
+
+	$(document).on("click", 'a.refresh', function(event) {
+		event.preventDefault();
+		console.log("weee");
 	})
 });
