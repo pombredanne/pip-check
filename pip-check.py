@@ -13,7 +13,10 @@ else:
 
 def get_installed(local=False):
 	pkgs = []
-	command = "pip freeze"
+	if args.pip3:
+		command = "pip3 freeze"
+	else:
+		command = "pip freeze"
 	if local:
 		command += " --local"
 	logging.info("Running "+command)
@@ -74,7 +77,10 @@ def updateall():
 	passes = []
 	for u in all_pkgs['updates']:
 		logging.info("Attempting to update package "+u[0]+".")
-		retcode, output = getstatusoutput("pip install "+u[0]+"=="+u[2])
+		if args.pip3:
+			retcode, output = getstatusoutput("pip3 install "+u[0]+"=="+u[2])
+		else:
+			retcode, output = getstatusoutput("pip install "+u[0]+"=="+u[2])
 		if retcode:
 			logging.error("Failed to install "+u[0]+", `pip install "+u[0]+"=="+u[2]+"` returned error code "+str(retcode)+".")
 			errors.append({'name': u[0], 'error': output, 'code': retcode})
@@ -86,7 +92,10 @@ def updateall():
 @app.route('/update/<pkg_name>', methods=['POST'])
 def update(pkg_name):
 	logging.info("Attempting to update package "+pkg_name+".")
-	retcode, output = getstatusoutput("pip install "+pkg_name)
+	if args.pip3:
+		retcode, output = getstatusoutput("pip3 install "+pkg_name)
+	else:
+		retcode, output = getstatusoutput("pip install "+pkg_name)
 	if retcode:
 		logging.error("Failed to install "+pkg_name.split("==")[0]+", `pip install "+pkg_name+"` returned error code "+str(retcode)+".")
 		return json.dumps({'error': output, 'code': retcode})
@@ -96,8 +105,9 @@ def update(pkg_name):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Web App to display updates for installed pip packages on your system.")
     parser.add_argument("-l", help="Log to specified file.")
-    parser.add_argument("-H", help="Specify host to serve on (be careful...), defaults to 127.0.0.1")
-    parser.add_argument("-P", help="Specify port to server on, defaults to 5000")
+    parser.add_argument("-H", help="Specify host to serve on (be careful...), defaults to 127.0.0.1.")
+    parser.add_argument("-P", help="Specify port to server on, defaults to 5000.")
+    parser.add_argument("--pip3", action="store_true", help="Use pip3, default is pip.")
     args = parser.parse_args()
     if args.l:
         logging.basicConfig(filename=args.l, level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
