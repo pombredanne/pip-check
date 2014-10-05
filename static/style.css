@@ -14,11 +14,11 @@ ul.updates, ul.installed {
 }
 
 ul.updates li, ul.installed li {
-	width: 25%;	
+	width: 100%;	
 	display: inline-block;
 	text-align: center;
-	padding-top: 15px;
-	padding-bottom: 15px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	background-color: rgb(230, 230, 230);
 	font-family: Verdana;
 	transition: background-color 1s;
@@ -26,25 +26,36 @@ ul.updates li, ul.installed li {
 }
 
 li a.name {
-	font-size: 14pt;
+	font-size: 10pt;
 	font-weight: bold;
 	text-decoration: none;
 	color: rgb(82, 82, 82);
+	display: inline-block;
 }
 
 ul.updates li:hover, ul.installed li:hover {
 	background-color: #99C7FF;
 }
 
+.list-wrap {	
+	display: inline-block;
+	width: 33%;
+}
+
+.list-wrap2 {	
+	display: inline-block;
+	width: 50%;
+}
+
 a.update, a.warn-update {
 	padding: 5px;
 	font-weight: bold;
-	font-size: 13pt;
+	font-size: 10pt;
 	cursor: pointer;
 	color: rgb(83, 151, 83);
 	text-decoration: none;
+	display: inline-block;
 }
-
 .old, .new {
 	font-size: 10pt;
 	display: inline-block;
@@ -64,6 +75,7 @@ a.update, a.warn-update {
 	font-size: 10pt;
 	font-weight: bold;
 	padding-top: 5px;
+	display: inline-block;
 }
 
 a {
