@@ -5,7 +5,8 @@ $(document).ready(function() {
 	var refresh = function() {
 		var availupdates = [];
 		// disable update all button
-		$(document).off('click', 'a.refresh')
+		$(document).off('click', 'a.refresh');
+		$('a.refresh').children('img').attr('id', 'rotating');
 		$.getJSON("/refresh", function(data) {
 			for (var i = 0;i<data['updates'].length;i++) {
 				if (data['updates'][i][3] === false) {
@@ -28,7 +29,8 @@ $(document).ready(function() {
 				$('ul.updates').children().remove();
 				$('ul.installed').children().remove();
 				avail = refresh();
-			})
+			});
+			$('a.refresh').children('img').removeAttr('id');
 		});
 		return availupdates;
 	}

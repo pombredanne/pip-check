@@ -92,3 +92,16 @@ img.refresh {
 	margin-right: 10px;
 	cursor: pointer;
 }
+
+@-webkit-keyframes rotateRefresh {
+    0% {
+        -webkit-transform: rotate(0deg) scaleX(1) scaleY(1) skewX(0deg) skewY(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg) scaleX(1) scaleY(1) skewX(0deg) skewY(0deg);
+    }
+}
+
+img#rotating {
+	-webkit-animation: rotateRefresh 2s linear infinite;
+}
