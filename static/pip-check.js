@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$("#tabs").tabs();
-	$("#tabs").children("ul").append("<li class='refresh'><a class='refresh'><img class='refresh' src='/static/images/refresh.svg' height='25px' width='25px' /></a></li>");
+	$("#tabs").children("ul").append("<li class='refresh'><a class='refresh'><img class='refresh' alt='refreshing package list' src='/static/images/refresh.svg' height='25px' width='25px' /></a></li>");
 
 	var refresh = function() {
 		var availupdates = [];
@@ -78,7 +78,7 @@ $(document).ready(function() {
 				for (var i = 0;i<data['passes'].length;i++) {
 					$('li#'+data['passes'][i]['name']).children('.version').text(data['passes'][i]['version']);
 					$('li#'+data['passes'][i]['name']).css('background-color', '#85C57C');
-					$(event.target).parent().remove();
+					$(event.target).parent().parent().remove();
 				}
 			}
 			if (data['errors']) {

@@ -65,7 +65,7 @@ def index():
 # refresh installed packages/latest versions
 @app.route('/refresh', methods=['GET'])
 def refresh():
-    installed = get_installed(args.L)
+    installed = get_installed(args.local)
     return json.dumps({'updates': get_latest(installed), 'installed': installed})
 
 # update all packages, assumes you already checked that this was dangerous...
@@ -110,7 +110,7 @@ if __name__ == '__main__':
     parser.add_argument("--pip3", action="store_true", help="Use pip3, default is pip.")
     args = parser.parse_args()
     # detect if inside a virtualenv/pyenv
-    if not args.L and hasattr(sys, 'real_prefix'):
+    if not args.local and hasattr(sys, 'real_prefix'):
         msg = "You are inside a virtualenv, are you sure you want to include globally installed packages? [y/N] # "
         if sys.version_info <= (3, 0):
             while True:
@@ -123,9 +123,9 @@ if __name__ == '__main__':
                 if answer in ['y', 'n', 'Y', 'N', '']:
                     break
         if answer in ['n', 'N', '']:
-            args.L = True
+            args.local = True
     if args.log:
         logging.basicConfig(filename=args.l, level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-    host = args.H or '127.0.0.1'
-    port = int(args.P) if args.P else 5000
-    app.run(host=host, port=port)
+    host = args.host or '127.0.0.1'
+    port = int(args.port) if args.port else 5000
+    app.run(host=host, port=port, debug=True)
