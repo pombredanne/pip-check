@@ -103,9 +103,9 @@ def update(pkg_name):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Web App to display updates for installed pip packages on your system.")
-    parser.add_argument("-H", help="Specify host to serve on (be careful, this can expose pip to the network), defaults to 127.0.0.1.")
-    parser.add_argument("-P", help="Specify port to server on, defaults to 5000.")
-    parser.add_argument("-L", action="store_true", help="Hide global packages if inside a virtualenv.")
+    parser.add_argument("-H", "--host", help="Specify host to serve on (be careful, this can expose pip to the network), defaults to 127.0.0.1.")
+    parser.add_argument("-P", "--port", help="Specify port to server on, defaults to 5000.")
+    parser.add_argument("-L", "--local", action="store_true", help="Hide global packages if inside a virtualenv.")
     parser.add_argument("--log", help="Log to specified file.")
     parser.add_argument("--pip3", action="store_true", help="Use pip3, default is pip.")
     args = parser.parse_args()
