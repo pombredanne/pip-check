@@ -77,6 +77,8 @@ a.updateall {
 	font-weight: bold;
 	text-align: center;
 	display: block;
+	width: 10%;
+	margin: auto;
 	margin-bottom: 20px;
 }
 
@@ -87,4 +89,5 @@ li.refresh {
 img.refresh {
 	margin: 5px;
 	margin-right: 10px;
+	cursor: pointer;
 }
