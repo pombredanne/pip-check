@@ -15,6 +15,7 @@ Usage
       -l L        Log to specified file.
       -H H        Specify host to serve on (be careful...), defaults to 127.0.0.1
       -P P        Specify port to server on, defaults to 5000
+      --pip3      Use pip3, default is pip.
 
 
 Screenshots
