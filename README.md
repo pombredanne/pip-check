@@ -24,4 +24,4 @@ Usage
 Screenshots
 -----------
 
-![gif of the web app in operation](screenshot.png)
+![gif of the web app in operation](screenshot.gif)
