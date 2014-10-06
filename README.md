@@ -24,10 +24,4 @@ Usage
 Screenshots
 -----------
 
-Available updates tab
-
-![available updates tab](updates.png)
-
-Installed packages tab
-
-![installed packages tab](installed.png)
+![gif of the web app in operation](screenshot.png)

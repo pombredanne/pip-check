@@ -67,7 +67,10 @@ $(document).ready(function() {
 	}
 
 	var update = function(pkg, event, turnON) {
-		$(document).off('click', 'a.update#'+pkg)
+		$(document).off('click', 'a.update#'+pkg);
+		$(event.target).css('display', 'none');
+		// add little spinny thing!
+		$(event.target).after("<img id='rotating' style='vertical-align: middle; width: 20px; height: 20px;' src='/static/images/refresh.svg'>");
 		$.post(event.target.href, function(data) {
 			if (data === "") {
 				console.log(event.target.href.split("==")[1]);
@@ -81,6 +84,8 @@ $(document).ready(function() {
 				$(event.target).attr('class', 'error'); 
 				$(event.target).text('error');
 				$(event.target).css('color', 'rgb(216, 85, 85)');
+				$(event.target).siblings('img#rotating').remove();
+				$(event.target).css('display', 'inline-block');
 				$(event.target).parent().parent().css('background-color', 'rgb(255, 194, 194)');
 				// add error log modal...
 				$(event.target).parent().append("<div class='error-msg' id='"+pkg+"'><pre class='language-bash'><code>"+loaded['error'].replace("\n", "<br />")+"</code></pre>");
