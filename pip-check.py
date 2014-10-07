@@ -27,7 +27,7 @@ def get_installed(local):
     code, output = getstatusoutput(command)
     if not code:
         for line in output.split("\n"):
-            if line and not line.startswith("##"):
+            if line and (not line.startswith("##") and not line.startswith("Warning:")):
                 if line.startswith("-e"):
                     name = line.split("#egg=", 1)[1]
                     if name.endswith("-dev"):
